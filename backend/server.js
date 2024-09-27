@@ -3,8 +3,6 @@ const express = require('express');
 const DbDataAccess = require('./dao/dbDataAccess');
 const MQTTClient = require('./MQTTClient');
 
-DbDataAccess.getAllData();
-
 const app = express();
 const port = 3000;
 
