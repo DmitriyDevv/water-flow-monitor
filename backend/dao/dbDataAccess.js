@@ -26,6 +26,21 @@ class DbDataAccess {
         }
     }
 
+    static getWaterFlowDataByHours(startDate, endDate) {
+        const sql = `SELECT strftime('%Y-%m-%d %H:00', dateTime) AS timeInterval, 
+                        SUM(liters) AS totalLiters
+                        FROM waterFlow
+                        WHERE dateTime BETWEEN ? AND ?
+                        GROUP BY timeInterval`;
+
+        try {
+            return this.db.prepare(sql).all(startDate, endDate);
+        } catch (error) {
+            console.error('Error getting data:', error.message);
+            return [];
+        }
+    }
+
     static getDatabase() {
         const dbPath = path.resolve(__dirname, '../db/waterData.db');
         const db = new sqlite3(dbPath);
