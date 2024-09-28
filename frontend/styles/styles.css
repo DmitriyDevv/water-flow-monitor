@@ -1,8 +1,4 @@
-.totalLiters {
-    position: absolute;
-    right: 50px;
-}
-
+.totalLiters,
 .controllContainer {
     text-align: center;
 }

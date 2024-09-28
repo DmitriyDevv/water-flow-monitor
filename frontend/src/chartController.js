@@ -29,6 +29,11 @@ class ChartController {
                         beginAtZero: true,
                     },
                 },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
             },
         });
     }
