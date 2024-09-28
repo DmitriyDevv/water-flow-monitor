@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const DbDataAccess = require('./dao/dbDataAccess');
 const MQTTClient = require('./MQTTClient');
@@ -8,6 +9,8 @@ const port = 3000;
 
 const mqttServer = 'mqtt://192.168.1.78:1883';
 new MQTTClient(mqttServer);
+
+app.use(cors());
 
 app.get('/getAll', (req, res) => {
     const { from, to } = req.query;

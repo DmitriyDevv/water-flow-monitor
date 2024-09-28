@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles/styles.css" />
+        <title>Water flow monitor</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="totalLiters"></div>
+            <div class="chartContainer">
+                <canvas id="waterFlowChart" width="400" height="400"></canvas>
+            </div>
+            <div class="controllContainer">
+                <input type="date" class="from" />
+                <input type="date" class="to" />
+                <button class="request">Request</button>
+            </div>
+        </div>
+        <script src="libs/chart-v4.4.4.js"></script>
+
+        <script src="src/main.js"></script>
+        <script src="src/chartController.js"></script>
+        <script src="src/dataController.js"></script>
+        <script src="src/viewController.js"></script>
+    </body>
+</html>

@@ -27,6 +27,9 @@ class DbDataAccess {
     }
 
     static getWaterFlowDataByHours(startDate, endDate) {
+        startDate += ' 00:00:00';
+        endDate += ' 23:59:59';
+
         const sql = `SELECT strftime('%Y-%m-%d %H:00', dateTime) AS timeInterval, 
                         SUM(liters) AS totalLiters
                         FROM waterFlow
