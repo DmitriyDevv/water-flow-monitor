@@ -2,7 +2,10 @@
 #include <PubSubClient.h>
 
 const int pin = 5; // D1
+const int debounceDelay = 100;
 int pinState = 0;
+int currentPinState = 0;
+unsigned long lastDebounceTime = 0;
 const char* mqttServer = "192.168.1.78";
 const char* topicName = "esp8266/flow"; 
 
@@ -68,15 +71,20 @@ void setup() {
 void loop() {
     mqttConnectHandler();
 
-    pinState = digitalRead(pin);
+    currentPinState = digitalRead(pin);
 
-    if (pinState == 1) {
-        isFlowTriggered = 1;  
-    } else if (pinState == 0) {
-        if (isFlowTriggered == 1) {
+    if (currentPinState != pinState) {
+        lastDebounceTime = millis();
+    }
+
+    if ((millis() - lastDebounceTime) > debounceDelay) {
+        if (currentPinState == 1 && isFlowTriggered == 0) {
+            isFlowTriggered = 1;
+        } else if (currentPinState == 0 && isFlowTriggered == 1) {
             sendMqttMessage();
             isFlowTriggered = 0;
-            delay(50);
         }
     }
+
+    pinState = currentPinState;
 }
