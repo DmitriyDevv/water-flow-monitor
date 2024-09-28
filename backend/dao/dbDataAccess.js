@@ -5,15 +5,10 @@ class DbDataAccess {
     static db = this.getDatabase();
 
     static saveFlowData(liters) {
-        const dateTime = new Date()
-            .toISOString()
-            .slice(0, 19)
-            .replace('T', ' ');
-
         const sql = `INSERT INTO waterFlow (dateTime, liters) VALUES (?, ?)`;
 
         try {
-            this.db.prepare(sql).run(dateTime, liters);
+            this.db.prepare(sql).run(this.getDateTime(), liters);
             console.log(`Inserted ${liters} liters at ${dateTime}`);
         } catch (error) {
             console.error('Error inserting data:', error.message);
@@ -41,6 +36,16 @@ class DbDataAccess {
                     liters INTEGER NOT NULL
                 )`);
         return db;
+    }
+
+    static getDateTime() {
+        const date = new Date();
+        const offset = date.getTimezoneOffset() * 60000;
+
+        return new Date(date.getTime() - offset)
+            .toISOString()
+            .slice(0, 19)
+            .replace('T', ' ');
     }
 }
 
