@@ -3,11 +3,24 @@ class DataController {
         this.serverAddress = serverAddress;
     }
 
-    async fetchData(from, to) {
+    async fetchByHours(from, to) {
         try {
             const response = await fetch(
                 `http://${this.serverAddress}:3000/getByHours?from=${from}&to=${to}`
             );
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching data:', error.message);
+            return [];
+        }
+    }
+
+    async fetchByDays(from, to) {
+        try {
+            const response = await fetch(
+                `http://${this.serverAddress}:3000/getByDays?from=${from}&to=${to}`
+            );
+            
             return await response.json();
         } catch (error) {
             console.error('Error fetching data:', error.message);

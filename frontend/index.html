@@ -13,8 +13,14 @@
                 <canvas id="waterFlowChart" width="400" height="400"></canvas>
             </div>
             <div class="controllContainer">
+                <select id="timeGroupingSelect">
+                    <option value="byHours">by hours</option>
+                    <option value="byDays">by days</option>
+                </select>
+                  
                 <input type="date" class="from" />
                 <input type="date" class="to" />
+
                 <button class="request">Request</button>
             </div>
         </div>
