@@ -26,6 +26,24 @@ class DbDataAccess {
         }
     }
 
+    static getWaterByDays(startDate, endDate) {
+        startDate += ' 00:00:00';
+        endDate += ' 23:59:59';
+        
+        const sql = `SELECT strftime('%Y-%m-%d', dateTime) AS timeInterval, 
+                        SUM(liters) AS totalLiters
+                        FROM waterFlow
+                        WHERE dateTime BETWEEN ? AND ?
+                        GROUP BY timeInterval`;
+
+        try {
+            return this.db.prepare(sql).all(startDate, endDate);
+        } catch (error) {
+            console.error('Error getting data:', error.message);
+            return [];
+        }
+    }
+
     static getWaterFlowDataByHours(startDate, endDate) {
         startDate += ' 00:00:00';
         endDate += ' 23:59:59';

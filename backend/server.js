@@ -28,6 +28,14 @@ app.get('/getByHours', (req, res) => {
     }
 });
 
+app.get('/getByDays', (req, res) => {
+    const { from, to } = req.query;
+
+    if (from && to) {
+        res.send(DbDataAccess.getWaterByDays(from, to));
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
