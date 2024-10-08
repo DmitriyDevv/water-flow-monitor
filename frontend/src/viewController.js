@@ -4,7 +4,12 @@ class ViewController {
         this.toInput = document.getElementsByClassName('to')[0];
         this.requestBtn = document.getElementsByClassName('request')[0];
         this.timeGroupingSelect = document.getElementById('timeGroupingSelect');
+
         this.totalLiters = document.getElementsByClassName('totalLiters')[0];
+        this.averLiters = document.getElementsByClassName('averLiters')[0];
+        this.maxLiters = document.getElementsByClassName('maxLiters')[0];
+        this.minLiters = document.getElementsByClassName('minLiters')[0];
+        this.waterPrice = document.getElementsByClassName('waterPrice')[0];
 
         this.dataController = new DataController('192.168.1.78');
         this.chartController = new ChartController();
@@ -39,7 +44,7 @@ class ViewController {
     async fetchDataByTimeGrouping(from, to) {
         const selectedType = this.timeGroupingSelect.value;
         switch (selectedType) {
-            case 'byHours': 
+            case 'byHours':
                 return await this.dataController.fetchByHours(from, to);
             case 'byDays':
                 return await this.dataController.fetchByDays(from, to);
@@ -47,8 +52,14 @@ class ViewController {
     }
 
     setTotalLiters(data) {
-        const totalLiters = this.dataController.calculateTotalLiters(data);
-        this.totalLiters.textContent = `Total liters: ${totalLiters}`;
+        const metrics = this.dataController.calculateMetrics(data);
+        this.totalLiters.textContent = `Total: ${metrics.accLiters}`;
+        this.averLiters.textContent = `Average: ${metrics.averLiters.toFixed(
+            0
+        )}`;
+        this.maxLiters.textContent = `Max: ${metrics.maxLitersInfo.liters} ${metrics.maxLitersInfo.time}`;
+        this.minLiters.textContent = `Min: ${metrics.minLitersInfo.liters} ${metrics.minLitersInfo.time}`;
+        this.waterPrice.textContent = `Price: ${metrics.price.toFixed(0)}`;
     }
 }
 

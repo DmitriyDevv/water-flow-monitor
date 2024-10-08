@@ -8,7 +8,18 @@
     </head>
     <body>
         <div class="container">
-            <div class="totalLiters"></div>
+            <div class="metricsContainer">
+                <div class="minMaxContainer">
+                    <div class="maxLiters"></div>
+                    <div class="minLiters"></div>
+                </div>
+                <div class="totalAverContainer">
+                    <div class="totalLiters"></div>
+                    <div class="averLiters"></div>
+                </div>
+                <div class="waterPrice"></div>
+            </div>
+
             <div class="chartContainer">
                 <canvas id="waterFlowChart" width="400" height="400"></canvas>
             </div>
@@ -17,7 +28,7 @@
                     <option value="byHours">by hours</option>
                     <option value="byDays">by days</option>
                 </select>
-                  
+
                 <input type="date" class="from" />
                 <input type="date" class="to" />
 
